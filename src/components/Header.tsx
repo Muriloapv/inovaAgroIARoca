@@ -1,38 +1,64 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-export const Header = ({ title }: { title?: string }) => {
+interface HeaderProps {
+  title?: string;
+  type?: 'full' | 'simple';
+}
+
+export const Header = ({ title, type = 'full' }: HeaderProps) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      {title ? (
-        <Text style={styles.title}>{title}</Text>
-      ) : (
-        <View style={styles.logoContainer}>
-          <Ionicons name="rocket" size={32} color="#27ae60" style={{ marginRight: 8 }} />
-          <Text style={styles.logoText}>IA da Roça</Text>
+    <>
+      {/* Barra superior só se type for 'full' */}
+      {type === 'full' && (
+        <View style={styles.topBar}>
+          {/* Botão/Menu à esquerda */}
+          <TouchableOpacity style={styles.menuButton} onPress={() => {}}>
+            <Ionicons name="menu" size={36} color="#27ae60" />
+          </TouchableOpacity>
+
+          {/* Logo centralizada */}
+          <View style={styles.centerContainer}>
+            <Image 
+              source={require('../assets/images/logo.png')} 
+              style={styles.logo}
+              resizeMode="contain"
+            />
+          </View>
+
+          {/* Ícone de perfil à direita */}
+          <TouchableOpacity
+            style={styles.profileButton}
+            onPress={() => navigation.navigate('Profile' as never)}
+          >
+            <Ionicons name="person-circle" size={36} color="#27ae60" />
+          </TouchableOpacity>
         </View>
       )}
-      <TouchableOpacity
-        style={styles.profileButton}
-        onPress={() => navigation.navigate('Profile' as never)}
-      >
-        <Ionicons name="person-circle" size={32} color="#27ae60" />
-      </TouchableOpacity>
-    </View>
+
+      {/* Barra inferior: seta de voltar e nome da página */}
+      <View style={styles.bottomBar}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={28} color="#27ae60" />
+        </TouchableOpacity>
+        <Text style={styles.pageTitle}>{title || ''}</Text>
+        <View style={{ width: 36 }} /> {/* Espaço para alinhar o título centralizado */}
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  topBar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 10,
     backgroundColor: '#fff',
     elevation: 2,
     shadowColor: '#000',
@@ -40,22 +66,46 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
   },
-  logoContainer: {
-    flexDirection: 'row',
+  menuButton: {
+    width: 40,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  centerContainer: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
-  logoText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#27ae60',
-    letterSpacing: 1,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+  logo: {
+    width: 56,
+    height: 56,
   },
   profileButton: {
-    padding: 4,
+    width: 40,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  bottomBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#ededed',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  backButton: {
+    width: 36,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  pageTitle: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#222',
   },
 }); 
