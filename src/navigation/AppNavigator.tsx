@@ -19,6 +19,7 @@ import { ManagementPlan } from '../screens/ManagementPlan';
 import { ManagementProgress } from '../screens/ManagementProgress';
 import { SalesList } from '../screens/SalesList';
 import { ScreenWithMenu } from '../components/ScreenWithMenu';
+import { ManagementDashboard } from '../screens/ManagementDashboard';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -38,6 +39,7 @@ export type RootStackParamList = {
   QuadrantDetail: undefined;
   ManagementPlans: undefined;
   DailySummary: undefined;
+  ManagementDashboard: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -140,6 +142,11 @@ export const AppNavigator = () => {
           name="DailySummary" 
           component={ScreenWithMenu(DailySummary)}
           options={{ title: 'Resumo Diário' }}
+        />
+        <Stack.Screen 
+          name="ManagementDashboard" 
+          component={ScreenWithMenu(ManagementDashboard)}
+          options={{ title: 'Plano de Manejo' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

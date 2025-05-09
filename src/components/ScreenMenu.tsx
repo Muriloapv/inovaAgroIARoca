@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Animated, ScrollView } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Animated, ScrollView, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -22,6 +22,7 @@ type RootStackParamList = {
   QuadrantDetail: undefined;
   ManagementPlans: undefined;
   DailySummary: undefined;
+  ManagementDashboard: undefined;
 };
 
 type NavigationProp = StackNavigationProp<RootStackParamList>;
@@ -49,6 +50,7 @@ export const ScreenMenu = () => {
   const menuItems = [
     { name: 'Início', icon: 'home' as const, screen: 'Home' as const },
     { name: 'Produtos', icon: 'leaf' as const, screen: 'ProductList' as const },
+    { name: 'Plano de Manejo', icon: 'clipboard' as const, screen: 'ManagementDashboard' as const },
     { name: 'Perfil', icon: 'person' as const, screen: 'Profile' as const },
     { name: 'Sugestão de Plantio', icon: 'leaf' as const, screen: 'PlantingSuggestion' as const },
     { name: 'Previsão de Demanda', icon: 'trending-up' as const, screen: 'DemandForecast' as const },
@@ -72,7 +74,7 @@ export const ScreenMenu = () => {
               <TouchableOpacity
                 key={item.name}
                 style={[
-                  styles.menuItem,
+                  styles.menuItemRow,
                   {
                     transform: [
                       {
@@ -86,7 +88,10 @@ export const ScreenMenu = () => {
                 ]}
                 onPress={() => navigateTo(item.screen)}
               >
-                <Ionicons name={item.icon} size={24} color="#fff" />
+                <Text style={styles.menuItemText}>{item.name}</Text>
+                <View style={styles.menuIconCircle}>
+                  <Ionicons name={item.icon} size={24} color="#fff" />
+                </View>
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -132,18 +137,28 @@ const styles = StyleSheet.create({
   scrollView: {
     maxHeight: 400,
   },
-  menuItem: {
+  menuItemRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  menuIconCircle: {
     backgroundColor: '#27ae60',
     width: 48,
     height: 48,
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 8,
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+  },
+  menuItemText: {
+    color: '#222',
+    fontSize: 16,
+    marginRight: 16,
+    fontWeight: '500',
   },
 }); 
