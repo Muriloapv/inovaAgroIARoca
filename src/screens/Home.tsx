@@ -6,23 +6,37 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 // Itens do menu de hambúrguer
 const menuItems = [
-  { name: 'Produtos', icon: 'leaf', screen: 'ProductList', color: '#2196F3' },
   { name: 'Plano de Manejo', icon: 'clipboard', screen: 'ManagementDashboard', color: '#4CAF50' },
-  { name: 'Sugestão de Plantio', icon: 'leaf', screen: 'PlantingSuggestion', color: '#8D6E63' },
-  { name: 'Previsão de Demanda', icon: 'trending-up', screen: 'DemandForecast', color: '#FF9800' },
   { name: 'Caderno de Campo', icon: 'book', screen: 'FarmNotebook', color: '#795548' },
   { name: 'Emissão de Nota', icon: 'document-text', screen: 'InvoiceEmission', color: '#607D8B' },
+  { name: 'Emissão de Código de Rastreio', icon: 'qr-code', screen: 'LotTrackingRegister', color: '#FF9800' },
+  { name: 'Resumo Diário', icon: 'calendar', screen: 'DailySummary', color: '#009688' },
+  { name: 'Plano de Gestão', icon: 'clipboard', screen: 'ManagementPlans', color: '#607D8B' },
+  { name: 'Movimento de Produtos', icon: 'swap-horizontal', screen: 'ProductMovement', color: '#FFA726' },
+  { name: 'Produtos', icon: 'leaf', screen: 'ProductList', color: '#2196F3' },
+  { name: 'Cadastro de Produtos', icon: 'add-circle', screen: 'ProductRegistration', color: '#AB47BC' },
+  { name: 'Sugestão de Plantio', icon: 'leaf', screen: 'PlantingSuggestion', color: '#8D6E63' },
+  { name: 'Previsão de Demanda', icon: 'trending-up', screen: 'DemandForecast', color: '#FF9800' },
   { name: 'AgroZap Chat', icon: 'chatbubbles', screen: 'AgroZapChat', color: '#00BCD4' },
   { name: 'Custo de Gestão', icon: 'calculator', screen: 'ManagementCost', color: '#388E3C' },
-  { name: 'Movimento de Produtos', icon: 'swap-horizontal', screen: 'ProductMovement', color: '#FFA726' },
   { name: 'Detalhe do Quadrante', icon: 'grid', screen: 'QuadrantDetail', color: '#F44336' },
-  { name: 'Planos de Gestão', icon: 'clipboard', screen: 'ManagementPlans', color: '#607D8B' },
-  { name: 'Resumo Diário', icon: 'calendar', screen: 'DailySummary', color: '#009688' },
-  { name: 'Cadastro de Produtos', icon: 'add-circle', screen: 'ProductRegistration', color: '#AB47BC' },
 ];
 
 type RootStackParamList = { [key: string]: undefined };
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList>;
+
+const COLORS = {
+  green: '#4CAF50',
+  greenLight: '#DDEDDC',
+  greenDark: '#2E7D32',
+  beige: '#FDF6EC',
+  brown: '#A1887F',
+  beigeGray: '#E0D9CC',
+  yellow: '#FFEB3B',
+  yellowPastel: '#FFF8DC',
+  gray: '#F5F5F5',
+  grayText: '#757575',
+};
 
 export const Home = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
@@ -37,7 +51,6 @@ export const Home = () => {
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={true}
           overScrollMode="never"
-          progressViewOffset={-20}
         >
           <View style={styles.gridWrapper}>
             <View style={styles.grid}>
@@ -70,14 +83,15 @@ export const Home = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: COLORS.beige,
   },
   scrollContainer: {
     flex: 1,
-    paddingLeft: 4,
+    paddingLeft: 0,
+    overflow: "scroll",
   },
   scrollView: {
-    flex: 1,
+    flexGrow: 1,
   },
   scrollContent: {
     paddingVertical: 16,
@@ -91,6 +105,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    overflow: 'scroll',
   },
   square: {
     width: '47%',
@@ -101,10 +116,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 3,
-    shadowColor: '#000',
+    shadowColor: COLORS.brown,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.15,
     shadowRadius: 3.84,
+    backgroundColor: COLORS.green,
   },
   squareIcon: {
     marginBottom: 12,
@@ -116,5 +132,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 22,
     paddingHorizontal: 4,
+    fontFamily: 'Poppins',
   },
 }); 
