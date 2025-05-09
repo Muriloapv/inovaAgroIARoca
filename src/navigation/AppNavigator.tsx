@@ -63,7 +63,9 @@ export const AppNavigator = () => {
         <Stack.Screen 
           name="Home" 
           component={ScreenWithMenu(Home)}
-          options={{ title: 'Início' }}
+          options={{ 
+            headerShown: false 
+          }}
         />
         <Stack.Screen 
           name="ProductList" 

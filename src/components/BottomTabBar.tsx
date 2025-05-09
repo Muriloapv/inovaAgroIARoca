@@ -60,12 +60,7 @@ export const BottomTabBar = () => {
 
   // Função para cadastrar novo item
   const openAddMenu = () => {
-    if (Platform.OS === 'ios') {
-      // Pode usar ActionSheetIOS
-    } else {
-      // Para Android, pode usar um modal ou alert simples
-      alert('Cadastrar novo item: Produto ou Categoria');
-    }
+    goTo('ProductRegistration');
   };
 
   // Definir qual aba está ativa
