@@ -50,7 +50,7 @@ export const Home = () => {
           style={styles.scrollView}
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={true}
-          overScrollMode="never"
+          overScrollMode="auto"
         >
           <View style={styles.gridWrapper}>
             <View style={styles.grid}>
@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    overflow: 'scroll',
   },
   square: {
     width: '47%',

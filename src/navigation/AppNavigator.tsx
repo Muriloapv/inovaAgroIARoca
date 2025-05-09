@@ -20,6 +20,7 @@ import { ManagementProgress } from '../screens/ManagementProgress';
 import { SalesList } from '../screens/SalesList';
 import { ScreenWithMenu } from '../components/ScreenWithMenu';
 import { ManagementDashboard } from '../screens/ManagementDashboard';
+import LotTrackingRegister from '../screens/LotTrackingRegister';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -40,6 +41,7 @@ export type RootStackParamList = {
   ManagementPlans: undefined;
   DailySummary: undefined;
   ManagementDashboard: undefined;
+  LotTrackingRegister: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -147,6 +149,11 @@ export const AppNavigator = () => {
           name="ManagementDashboard" 
           component={ScreenWithMenu(ManagementDashboard)}
           options={{ title: 'Plano de Manejo' }}
+        />
+        <Stack.Screen 
+          name="LotTrackingRegister" 
+          component={ScreenWithMenu(LotTrackingRegister)}
+          options={{ title: 'Emissão de Código de Rastreio' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

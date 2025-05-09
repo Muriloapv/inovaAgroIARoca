@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import QRCode from 'react-native-qrcode-svg';
 
 const COLORS = {
   green: '#4CAF50',
@@ -23,33 +22,22 @@ const QUADRANTES = [
   'Quadrante D',
 ];
 
-function generateRandomCode() {
-  return Math.random().toString(36).substring(2, 10).toUpperCase();
-}
-
 export default function LotTrackingRegister() {
   const [data, setData] = useState({
-    plantio: '',
-    insumos: '',
-    local: '',
-    custo: '',
-    produtividade: '',
     quadrante: QUADRANTES[0],
+    insumos: '',
+    plantio: '',
+    colheita: '',
   });
   const [showQR, setShowQR] = useState(false);
-  const [randomCode, setRandomCode] = useState('');
 
   const handleChange = (field: string, value: string) => {
     setData({ ...data, [field]: value });
   };
 
   const handleGenerate = () => {
-    const code = generateRandomCode();
-    setRandomCode(code);
     setShowQR(true);
   };
-
-  const qrValue = JSON.stringify({ ...data, code: randomCode });
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
@@ -67,25 +55,20 @@ export default function LotTrackingRegister() {
             ))}
           </Picker>
         </View>
-        <Text style={styles.label}>Data de Plantio</Text>
-        <TextInput style={styles.input} value={data.plantio} onChangeText={v => handleChange('plantio', v)} placeholder="DD/MM/AAAA" />
         <Text style={styles.label}>Insumos Utilizados</Text>
         <TextInput style={styles.input} value={data.insumos} onChangeText={v => handleChange('insumos', v)} placeholder="Ex: Fertilizante X, Semente Y" />
-        <Text style={styles.label}>Local</Text>
-        <TextInput style={styles.input} value={data.local} onChangeText={v => handleChange('local', v)} placeholder="Ex: Fazenda Boa Vista" />
-        <Text style={styles.label}>Custo</Text>
-        <TextInput style={styles.input} value={data.custo} onChangeText={v => handleChange('custo', v)} placeholder="Ex: R$ 500,00" />
-        <Text style={styles.label}>Produtividade</Text>
-        <TextInput style={styles.input} value={data.produtividade} onChangeText={v => handleChange('produtividade', v)} placeholder="Ex: 1000kg" />
+        <Text style={styles.label}>Data de Plantio</Text>
+        <TextInput style={styles.input} value={data.plantio} onChangeText={v => handleChange('plantio', v)} placeholder="DD/MM/AAAA" />
+        <Text style={styles.label}>Data de Colheita</Text>
+        <TextInput style={styles.input} value={data.colheita} onChangeText={v => handleChange('colheita', v)} placeholder="DD/MM/AAAA" />
         <TouchableOpacity style={styles.button} onPress={handleGenerate}>
-          <Text style={styles.buttonText}>Criar Código e Gerar QRCode</Text>
+          <Text style={styles.buttonText}>Gerar</Text>
         </TouchableOpacity>
       </View>
       {showQR && (
         <View style={styles.qrContainer}>
           <Text style={styles.qrLabel}>QRCode do Lote</Text>
-          <QRCode value={qrValue} size={180} backgroundColor={COLORS.beigeGray} color={COLORS.greenDark} />
-          <Text style={styles.codeLabel}>Código: {randomCode}</Text>
+          <Image source={require('../assets/images/qrcode.png')} style={styles.qrImage} resizeMode="contain" />
         </View>
       )}
     </ScrollView>
@@ -165,10 +148,8 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     fontFamily: 'Poppins',
   },
-  codeLabel: {
-    fontSize: 16,
-    color: COLORS.greenDark,
-    marginTop: 12,
-    fontFamily: 'Poppins',
+  qrImage: {
+    width: 180,
+    height: 180,
   },
 }); 
