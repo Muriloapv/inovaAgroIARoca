@@ -88,10 +88,10 @@ export const ScreenMenu = () => {
                 ]}
                 onPress={() => navigateTo(item.screen)}
               >
-                <Text style={styles.menuItemText}>{item.name}</Text>
                 <View style={styles.menuIconCircle}>
                   <Ionicons name={item.icon} size={24} color="#fff" />
                 </View>
+                <Text style={styles.menuItemText}>{item.name}</Text>
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -133,6 +133,15 @@ const styles = StyleSheet.create({
     bottom: 70,
     right: 0,
     maxHeight: 400,
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    borderRadius: 16,
+    padding: 12,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    minWidth: 280,
   },
   scrollView: {
     maxHeight: 400,
@@ -140,7 +149,11 @@ const styles = StyleSheet.create({
   menuItemRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 12,
+    paddingRight: 8,
+    paddingLeft: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
   },
   menuIconCircle: {
     backgroundColor: '#27ae60',
@@ -154,11 +167,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    marginRight: 16,
   },
   menuItemText: {
     color: '#222',
     fontSize: 16,
-    marginRight: 16,
     fontWeight: '500',
   },
 }); 

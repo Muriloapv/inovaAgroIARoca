@@ -6,10 +6,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 // Itens do menu de hambúrguer
 const menuItems = [
-  { name: 'Início', icon: 'home', screen: 'Home', color: '#27ae60' },
   { name: 'Produtos', icon: 'leaf', screen: 'ProductList', color: '#2196F3' },
   { name: 'Plano de Manejo', icon: 'clipboard', screen: 'ManagementDashboard', color: '#4CAF50' },
-  { name: 'Perfil', icon: 'person', screen: 'Profile', color: '#9C27B0' },
   { name: 'Sugestão de Plantio', icon: 'leaf', screen: 'PlantingSuggestion', color: '#8D6E63' },
   { name: 'Previsão de Demanda', icon: 'trending-up', screen: 'DemandForecast', color: '#FF9800' },
   { name: 'Caderno de Campo', icon: 'book', screen: 'FarmNotebook', color: '#795548' },
@@ -31,69 +29,73 @@ export const Home = () => {
   const route = useRoute();
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
-        <TouchableOpacity style={styles.iaContainer} onPress={() => navigation.navigate('Home')}>
-          <Ionicons name="rocket" size={36} color="#27ae60" style={{ marginRight: 8 }} />
-          <Text style={styles.iaText}>IA da Roça</Text>
-        </TouchableOpacity>
-        <View style={styles.gridWrapper}>
-          <View style={styles.grid}>
-            {menuItems.map((item, index) => {
-              const isSelected = route.name === item.screen;
-              return (
-                <TouchableOpacity
-                  key={item.name}
-                  style={[styles.square, { backgroundColor: item.color }]}
-                  onPress={() => navigation.navigate(item.screen as any)}
-                >
-                  <Ionicons
-                    name={item.icon as any}
-                    size={32}
-                    color={isSelected ? '#fff' : 'rgba(255,255,255,0.7)'}
-                  />
-                  <Text style={styles.squareTitle}>{item.name}</Text>
-                </TouchableOpacity>
-              );
-            })}
+    <View style={styles.mainContainer}>
+      <View style={styles.scrollContainer}>
+        <ScrollView 
+          bounces={false}
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={true}
+          overScrollMode="never"
+          progressViewOffset={-20}
+        >
+          <View style={styles.gridWrapper}>
+            <View style={styles.grid}>
+              {menuItems.map((item, index) => {
+                const isSelected = route.name === item.screen;
+                return (
+                  <TouchableOpacity
+                    key={item.name}
+                    style={[styles.square, { backgroundColor: item.color }]}
+                    onPress={() => navigation.navigate(item.screen as any)}
+                  >
+                    <Ionicons
+                      name={item.icon as any}
+                      size={32}
+                      color={isSelected ? '#fff' : 'rgba(255,255,255,0.9)'}
+                      style={styles.squareIcon}
+                    />
+                    <Text style={styles.squareTitle}>{item.name}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  iaContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 24,
-    marginBottom: 16,
+  scrollContainer: {
+    flex: 1,
+    paddingLeft: 4,
   },
-  iaText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#27ae60',
-    letterSpacing: 1,
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingVertical: 16,
+    paddingBottom: 32,
+    paddingRight: 16,
   },
   gridWrapper: {
-    flex: 1,
+    paddingHorizontal: 12,
   },
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    padding: 8,
+    justifyContent: 'space-between',
   },
   square: {
-    width: '42%',
+    width: '47%',
     aspectRatio: 1,
-    margin: '4%',
+    marginBottom: 16,
     borderRadius: 12,
     padding: 16,
     justifyContent: 'center',
@@ -104,11 +106,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
+  squareIcon: {
+    marginBottom: 12,
+  },
   squareTitle: {
     color: '#fff',
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: 8,
+    lineHeight: 22,
+    paddingHorizontal: 4,
   },
 }); 
